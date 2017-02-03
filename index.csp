@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--<script data-require="modernizr@*" data-semver="2.6.2" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.min.css" />
+  <script src="https://code.angularjs.org/1.4.8/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-mocks.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.5/ui-bootstrap-tpls.min.js"></script>-->
+
+  <script src="vendor/modernizr.js"></script>
+  <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+  <link rel="stylesheet" href="vendor/bootstrap-theme.min.css" />
+  <script src="vendor/angular.js"></script>
+  <script src="vendor/angular-mocks.js"></script>
+  <script src="vendor/ui-bootstrap-tpls.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="helpers.js"></script>
+  <script src="backend.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body ng-app="app" ng-strict-di="" ng-controller="myController">
+
+  <p>
+    Double click - edit
+    <br> Enter - save
+  </p>
+    
+<div class="row">
+  <div class="col-sm-6">
+    
+
+    <form ng-submit="saveItem(newItem)">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="newItem.Name" placeholder="New teacher name">
+        <span class="input-group-btn">
+          <button ng-click="saveItem(newItem)" class="btn btn-primary" type="button"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </span>
+      </div>
+    </form>
+    
+    <br>
+
+    <div class="list-group">
+      <div href="#" ng-repeat="item in items | orderBy: '-ID'"
+                  ng-class="['list-group-item', {'active':currentItem.ID == item.ID}]"  
+                  ng-dblclick="item.is_edit = !item.is_edit" 
+                  ng-click="$parent.currentItem = item">
+        
+        <span ng-hide="item.is_edit">{{item.Name}}</span>
+
+        <form ng-show="item.is_edit" ng-submit="saveItem(item)" class="inline-block">
+           <div class="input-group">
+            <input type="text" class="form-control" ng-model="item.Name">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" ng-click="saveItem(item)"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </span>
+          </div>
+        </form>
+
+        <span ng-hide="item.is_edit">
+          <a href="#" ng-click="item.is_edit = true"><span class="glyphicon glyphicon-pencil"></span></a>
+
+          <a href="#" ng-click="removeItem(item)"><span class="glyphicon glyphicon-remove"></span></a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Teacher info</div>
+      <div class="panel-body">
+        
+        <dl class="dl-horizontal" ng-if="currentItem">
+          <dt>ID:</dt>
+          <dd>{{currentItem.ID}}</dd>
+          <dt>Name:</dt>
+          <dd>{{currentItem.Name}}</dd>
+        </dl>
+        
+        <div class="alert alert-warning" role="alert" ng-hide="currentItem">
+          <b>Warning!</b>
+          Please select item
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>

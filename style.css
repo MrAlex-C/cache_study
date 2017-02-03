@@ -1,0 +1,11 @@
+/* Styles go here */
+
+.inline-block {
+  display: inline-block;
+}
+input {
+      color: black;
+}
+.list-group > div {
+  cursor: pointer;
+}

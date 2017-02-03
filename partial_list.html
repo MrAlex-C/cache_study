@@ -1,0 +1,12 @@
+<h2>New Item:</h2>
+id: <input type="text" ng-model="newItem.id">
+name: <input type="text" ng-model="newItem.name">
+<a href ng-click="addNewItem()">Add</a>
+
+<h2>List:</h2>
+<ul>
+  <li ng-repeat="item in list">
+    <a ui-sref="app.item({index:$index})">id: {{item.id}}, name: <b>{{item.name}}</b></a>
+  </li>
+</ul>
+<span class="label label-default">{{appCtrl.info}}</span>
